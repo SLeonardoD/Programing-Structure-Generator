@@ -1,0 +1,74 @@
+trading-system/
+├── .github/                  # Configuración de CI/CD (GitHub Actions)
+│   └── workflows/
+│       ├── tests.yml         # Ejecución de pruebas unitarias
+│       └── deploy-prod.yml   # Despliegue automatizado en VPS
+│
+├── config/                   # Configuraciones globales
+│   ├── env/
+│   │   ├── dev.yaml          # Parámetros para desarrollo
+│   │   ├── prod.yaml         # Configuración de producción
+│   │   └── secrets.yaml      # Plantilla para secrets (encriptado con SOPS)
+│   └── api/
+│       └── openapi/          # Especificaciones Swagger/OpenAPI
+│
+├── src/                      # Código fuente principal
+│   ├── core_ai/              # Modelo LSTM + Atención
+│   │   ├── training/         # Scripts de entrenamiento
+│   │   └── inference/        # Inferencia en tiempo real (ONNX)
+│   │
+│   ├── broker_connectors/    # Conexión a Binance/Bybit
+│   │   ├── binance/          # REST + WebSocket
+│   │   └── ccxt_adapter/      # Wrapper para CCXT (multi-broker)
+│   │
+│   ├── data_pipeline/        # Procesamiento de datos
+│   │   ├── collectors/       # Extracción OHLCV + on-chain
+│   │   └── normalizers/      # Ventanas temporales + MinMaxScaler
+│   │
+│   ├── risk_management/      # Gestión de riesgo
+│   │   ├── circuit_breakers/ # Stop Loss dinámico + drawdown checks
+│   │   └── position_sizing/  # Cálculo de tamaño de posición (Kelly)
+│   │
+│   ├── execution_engine/     # Ejecución de órdenes
+│   │   ├── order_queue/      # Colas prioritarias (Celery/RabbitMQ)
+│   │   └── simulator/        # Simulación pre-ejecución
+│   │
+│   ├── telemetry/            # Monitoreo y alertas
+│   │   ├── prometheus/       # Métricas (latencia, uso de CPU)
+│   │   └── alerts/           # Integración Telegram/Email
+│   │
+│   ├── security/             # Seguridad y encriptación
+│   │   ├── vault/            # Gestión de claves (Hashicorp Vault)
+│   │   └── audit/            # Logs de acceso y auditoría
+│   │
+│   └── utils/                # Utilidades compartidas
+│       ├── logger/           # Logs estructurados (JSON)
+│       └── error_handling/   # Reintentos + cuarentena de datos
+│
+├── infrastructure/           # Infraestructura como código (IaC)
+│   ├── docker/               # Contenedores por módulo
+│   │   ├── core_ai.Dockerfile
+│   │   └── redis.Dockerfile
+│   │
+│   ├── kubernetes/           # Orchestration (opcional)
+│   │   ├── deployments/
+│   │   └── services/
+│   │
+│   └── terraform/            # Despliegue en nube (Oracle/DigitalOcean)
+│       └── vpc/
+│
+├── tests/                    # Pruebas automatizadas
+│   ├── unit/                 # Pruebas unitarias (pytest)
+│   └── integration/          # Pruebas de integración con Testnet
+│
+├── docs/                     # Documentación
+│   ├── architecture/         # Diagramas C4 (draw.io)
+│   └── api/                  # MkDocs + Swagger UI
+│
+├── scripts/                  # Scripts auxiliares
+│   ├── backup/               # Respaldos en AWS S3
+│   └── deploy/               # Automatización de despliegue
+│
+└── monitoring/              # Dashboards y métricas
+    ├── grafana/             # Plantillas de dashboards
+    └── loki/               # Agregación de logs (Grafana Loki)

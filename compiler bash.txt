@@ -1,0 +1,1 @@
+pyinstaller --onefile --name StructureGenerator --icon=icon.ico structure_generator.py
