@@ -3,16 +3,15 @@ import argparse
 from pathlib import Path
 
 def mostrar_banner():
-    print("""
-    ============================================
+    print("""          
      GENERADOR DE ESTRUCTURAS DE DIRECTORIOS
-    ============================================
+          
     Instrucciones:
-    1. Archivo 'estructura.txt' debe existir en la ruta origen
-    2. Si es proyecto Python se crean los (__init__.py) y si no lo es, se crean los .gitkeep
-    3. Primero pegue la ruta de la estructura.
-    4. Luego la ruta del objetivo de las carpetas.
-    5. Para finalizar Y o N, para saber si es un proyecto Python o no.
+    !!. Archivo 'estructura.txt' debe existir en la ruta origen
+    1. Primero pegue la ruta de la estructura.
+    2. Luego la ruta objetivo, donde va a ser creada la estructura.
+    3. Para finalizar Y o N, para saber si es un proyecto Python o no.
+    !!. Si es proyecto Python se crean los (__init__.py) y si no lo es, se crean los .gitkeep
     """)
 
 def es_linea_de_formato(linea):
@@ -96,18 +95,9 @@ def crear_estructura(archivo_estructura, destino, es_python):
 
 def main():
     mostrar_banner()
-    
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument('--origen', help='Ruta del archivo estructura.txt')
-    parser.add_argument('--destino', help='Ruta destino para la estructura')
-    
-    args = parser.parse_args()
-    
-    # Modo interactivo
-    if not args.origen or not args.destino:
-        print("\n💡 Ingrese las rutas (o use --origen y --destino):")
-        args.origen = input("📍 Ruta al directorio con estructura.txt: ").strip('"')
-        args.destino = input("🎯 Ruta destino para crear la estructura: ").strip('"')
+    print("\n💡 Ingrese las rutas:")
+    origen = input("📍 Ruta al directorio con estructura.txt: ").strip('"')
+    destino = input("🎯 Ruta destino para crear la estructura: ").strip('"')
 
     # Validar tipo de proyecto
     while True:
@@ -117,8 +107,8 @@ def main():
             break
         print("❌ Error: Ingrese Y o N")
 
-    origen_path = Path(args.origen)
-    destino_path = Path(args.destino)
+    origen_path = Path(origen)
+    destino_path = Path(destino)
     archivo_estructura = origen_path / "estructura.txt"
 
     if not archivo_estructura.exists():
@@ -128,6 +118,7 @@ def main():
     print(f"\n🚀 Iniciando creación en: {destino_path}")
     crear_estructura(archivo_estructura, destino_path, es_python)
     print("\n✅ ¡Estructura creada con éxito! 🎉")
+
 
 if __name__ == "__main__":
     main()
